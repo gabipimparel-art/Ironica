@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102535">
+  <title>Ironica — Republic of the Three Houses</title>
+  <style>
+    :root {
+      --navy: #102535; --navy2: #18394b; --gold: #d8b66a;
+      --cream: #f4f1e9; --ink: #172a35; --muted: #65737a;
+      --white: #fff; --line: rgba(216,182,106,.32);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--cream); color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    a { color: inherit; }
+    .topline { height: 5px; background: linear-gradient(90deg, var(--gold), #f3df9f, var(--gold)); }
+    header { background: var(--navy); color: white; border-bottom: 1px solid var(--line); }
+    .nav { max-width: 1160px; margin: auto; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; gap: 13px; align-items: center; text-decoration: none; }
+    .flag { width: 64px; height: 42px; object-fit: cover; border: 1px solid rgba(216,182,106,.65); border-radius: 4px; background: white; }
+    .flag-display { width: min(420px, 100%); text-align: center; }
+    .flag-display img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: contain; background: #fff; border: 1px solid rgba(216,182,106,.7); border-radius: 8px; box-shadow: 0 0 0 12px rgba(216,182,106,.035), 0 16px 40px rgba(0,0,0,.22); }
+    .flag-display span { display: inline-block; margin-top: 20px; color: var(--gold); font-size: 10px; letter-spacing: .2em; font-weight: 750; }
+    .brand strong { display: block; font-family: Georgia, serif; letter-spacing: .16em; font-size: 17px; }
+    .brand small { display: block; color: #c8d4da; margin-top: 4px; font-size: 10px; letter-spacing: .08em; }
+    .map-art-image { display: block; padding: 0; background: #fff; }
+    .map-art-image img { display: block; width: 100%; max-height: 560px; object-fit: contain; }
+    nav { display: flex; gap: 22px; flex-wrap: wrap; }
+    nav a { font-size: 13px; color: #e1e7e9; text-decoration: none; }
+    nav a:hover { color: var(--gold); }
+    .hero { background: radial-gradient(ellipse at 75% 25%, #244b5e 0, transparent 45%), linear-gradient(135deg, var(--navy), #0b1b27); color: white; overflow: hidden; }
+    .hero-inner { max-width: 1160px; margin: auto; padding: 82px 24px 76px; display: grid; grid-template-columns: 1.25fr .75fr; align-items: center; gap: 48px; }
+    .eyebrow { text-transform: uppercase; letter-spacing: .19em; color: var(--gold); font-size: 11px; font-weight: 750; }
+    h1 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(42px, 6vw, 72px); line-height: 1.02; font-weight: 500; margin: 18px 0; }
+    h1 em { color: var(--gold); font-style: normal; }
+    .lead { max-width: 620px; color: #d4e0e5; line-height: 1.75; font-size: 16px; }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+    .btn { display: inline-block; text-decoration: none; padding: 13px 18px; border-radius: 6px; font-size: 13px; font-weight: 750; border: 1px solid var(--gold); }
+    .btn.primary { background: var(--gold); color: var(--navy); }
+    .btn.secondary { color: white; }
+    .seal-wrap { display: grid; place-items: center; min-height: 290px; }
+    .seal { width: min(280px, 80vw); aspect-ratio: 1; border: 1px solid rgba(216,182,106,.7); border-radius: 50%; display: grid; place-items: center; position: relative; background: radial-gradient(circle, rgba(216,182,106,.12), rgba(255,255,255,.015) 68%); box-shadow: 0 0 0 14px rgba(216,182,106,.035), 0 0 0 28px rgba(216,182,106,.025); }
+    .seal:before { content: ""; position: absolute; inset: 18px; border: 1px dashed rgba(216,182,106,.6); border-radius: 50%; }
+    .seal-inner { text-align: center; color: var(--gold); }
+    .seal-inner .symbol { font-size: 76px; line-height: 1.15; }
+    .seal-inner strong { display: block; letter-spacing: .2em; font-size: 12px; }
+    .seal-inner small { display: block; color: #d7dfe2; margin-top: 8px; letter-spacing: .12em; font-size: 9px; }
+    .stats { max-width: 1160px; margin: -25px auto 0; padding: 0 24px; position: relative; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); background: white; border: 1px solid #e4dfd3; box-shadow: 0 12px 30px rgba(16,37,53,.07); border-radius: 10px; overflow: hidden; }
+    .stat { padding: 23px 24px; border-right: 1px solid #ece8df; }
+    .stat:last-child { border-right: 0; }
+    .stat span { display: block; color: var(--muted); text-transform: uppercase; letter-spacing: .12em; font-size: 10px; font-weight: 750; }
+    .stat strong { display: block; margin-top: 10px; font-family: Georgia, serif; font-size: 25px; color: var(--navy); }
+    .stat small { display: block; color: var(--muted); margin-top: 4px; font-size: 11px; }
+    main { max-width: 1160px; margin: auto; padding: 76px 24px 88px; }
+    .section-head { margin-bottom: 28px; }
+    .section-head h2 { font-family: Georgia, serif; color: var(--navy); font-size: clamp(29px, 4vw, 42px); font-weight: 500; margin: 10px 0; }
+    .section-head p { color: var(--muted); max-width: 670px; line-height: 1.7; margin: 0; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card { background: white; border: 1px solid #e5e0d5; border-radius: 9px; padding: 25px; min-height: 190px; }
+    .card-icon { font-size: 25px; }
+    .card h3 { font-family: Georgia, serif; color: var(--navy); font-size: 22px; font-weight: 500; margin: 16px 0 9px; }
+    .card p { color: var(--muted); font-size: 13px; line-height: 1.7; margin: 0; }
+    .government { display: grid; grid-template-columns: .8fr 1.2fr; gap: 32px; margin-top: 76px; align-items: stretch; }
+    .gov-intro { background: var(--navy); color: white; border-radius: 10px; padding: 34px; }
+    .gov-intro h2 { font-family: Georgia, serif; font-size: 34px; font-weight: 500; margin: 14px 0; }
+    .gov-intro p { color: #d0dce1; line-height: 1.8; font-size: 14px; }
+    .officials { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .official { background: white; border: 1px solid #e5e0d5; border-radius: 10px; padding: 26px; }
+    .avatar { width: 48px; height: 48px; display: grid; place-items: center; background: #f3ead5; border-radius: 50%; font-size: 23px; }
+    .official .role { color: #98772f; text-transform: uppercase; letter-spacing: .12em; font-size: 10px; font-weight: 800; margin-top: 22px; }
+    .official h3 { color: var(--navy); font-family: Georgia, serif; font-size: 24px; font-weight: 500; margin: 8px 0; }
+    .official p { color: var(--muted); font-size: 12px; line-height: 1.6; }
+    .economy { margin-top: 76px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: center; }
+    .currency-box { background: #e9e3d5; border-radius: 12px; padding: 32px; }
+    .currency-box .coin { width: 76px; height: 76px; display: grid; place-items: center; border-radius: 50%; background: linear-gradient(145deg, #f0d991, #c39b43); color: #352a12; border: 5px double #f9e8b0; font-family: Georgia, serif; font-size: 26px; box-shadow: 0 8px 18px #b7aa8b; }
+    .currency-box h3 { color: var(--navy); font-family: Georgia, serif; font-size: 26px; font-weight: 500; }
+    .currency-box p { color: #56636a; line-height: 1.7; font-size: 14px; }
+    .notice { background: #fff9e9; border-left: 3px solid var(--gold); padding: 13px 15px; color: #625537; font-size: 12px; line-height: 1.6; margin-top: 18px; }
+    .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .fact { padding: 18px; background: white; border: 1px solid #e5e0d5; border-radius: 8px; }
+    .fact span { display: block; color: var(--muted); font-size: 11px; }
+    .fact strong { display: block; margin-top: 7px; color: var(--navy); font-size: 19px; }
+    .map-panel { margin-top: 76px; border-radius: 12px; overflow: hidden; background: #dce4dd; border: 1px solid #cbd5cc; }
+    .map-head { background: var(--navy2); color: white; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .map-head h2 { font-family: Georgia, serif; font-weight: 500; margin: 0; font-size: 27px; }
+    .map-head span { color: #d5e1e5; font-size: 11px; }
+    .map-art { min-height: 290px; display: grid; place-items: center; padding: 26px; background-image: radial-gradient(#a7b7aa 1px, transparent 1px); background-size: 16px 16px; }
+    .map-land { width: min(600px, 95%); min-height: 220px; border: 2px solid #7e9a85; border-radius: 45% 55% 62% 38% / 43% 36% 64% 57%; background: linear-gradient(145deg, #b8cbb8, #d1d8b8); position: relative; display: grid; place-items: center; box-shadow: inset 0 0 0 10px rgba(255,255,255,.12); }
+    .map-label { background: var(--navy); color: white; padding: 11px 16px; border-radius: 6px; text-align: center; box-shadow: 0 4px 12px #728577; }
+    .map-label strong { display: block; letter-spacing: .13em; font-size: 12px; }
+    .map-label small { color: #e4d39c; font-size: 10px; }
+    .map-note { padding: 14px 22px; background: #f6f5ef; color: #5c6961; font-size: 12px; }
+    footer { background: #0a1923; color: #d4dfe4; }
+    .footer-inner { max-width: 1160px; margin: auto; padding: 30px 24px; display: flex; justify-content: space-between; align-items: center; gap: 18px; flex-wrap: wrap; }
+    .footer-inner strong { color: var(--gold); letter-spacing: .12em; }
+    .footer-inner small { color: #aebdc4; line-height: 1.7; }
+    @media (max-width: 760px) {
+      .nav { align-items: flex-start; flex-direction: column; }
+      nav { gap: 14px; }
+      .hero-inner { grid-template-columns: 1fr; padding-top: 58px; gap: 25px; }
+      .seal-wrap { min-height: 220px; }
+      .seal { width: 210px; }
+      .seal-inner .symbol { font-size: 58px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .stat:nth-child(2) { border-right: 0; }
+      .stat:nth-child(-n+2) { border-bottom: 1px solid #ece8df; }
+      .cards { grid-template-columns: 1fr; }
+      .government, .economy { grid-template-columns: 1fr; }
+      .officials { grid-template-columns: 1fr 1fr; }
+      main { padding-top: 56px; }
+    }
+    @media (max-width: 430px) {
+      .officials, .facts { grid-template-columns: 1fr; }
+      .stat { padding: 18px 14px; }
+      .stat strong { font-size: 21px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topline"></div>
+  <header>
+    <div class="nav">
+      <a class="brand" href="#home" aria-label="Ironica — página inicial">
+        <img class="flag" src="ironica-flag.jpg" alt="Bandeira oficial de Ironica">
+        <div><strong>IRONICA</strong><small>HTTPS://IRONICA.COM</small></div>
+      </a>
+      <nav aria-label="Navegação principal">
+        <a href="#government">Government</a>
+        <a href="#economy">Economy</a>
+        <a href="#territory">Territory</a>
+        <a href="#about">About Ironica</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">OFFICIAL PORTAL · FICTIONAL NATION</div>
+        <h1>One republic.<br><em>Three Houses.</em><br>One future.</h1>
+        <p class="lead">Welcome to the Republic of the Three Houses of Ironica. Discover the institutions, economy, and territory of a nation built your way.</p>
+        <div class="actions">
+          <a class="btn primary" href="#government">Meet the Government</a>
+          <a class="btn secondary" href="#territory">Explore the Territory</a>
+        </div>
+      </div>
+      <div class="seal-wrap" aria-label="Emblema decorativo das três casas">
+        <div class="seal"><div class="seal-inner"><div class="symbol">Ⅲ</div><strong>IRONICA</strong><small>UNITY · DUTY · FUTURE</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats" aria-label="Indicadores de Ironica">
+    <div class="stats-grid">
+      <div class="stat"><span>Declared Territory</span><strong>666 m²</strong><small>Total area in the lore</small></div>
+      <div class="stat"><span>National Currency</span><strong>Brisha (B)</strong><small>1 B = €0,50</small></div>
+      <div class="stat"><span>Declared Funds</span><strong>≈ 900.000 B</strong><small>Plus euros</small></div>
+      <div class="stat"><span>Form of Government</span><strong>República</strong><small>Constitutional democracy</small></div>
+    </div>
+  </div>
+
+  <main>
+    <section id="about">
+      <div class="section-head">
+        <div class="eyebrow">The Nation at a Glance</div>
+        <h2>Discover Ironica</h2>
+        <p>An overview of the defining features of the Republic of the Three Houses of Ironica, as established in its fictional universe.</p>
+      </div>
+      <div class="cards">
+        <article class="card"><div class="card-icon">🏛️</div><h3>Institutions</h3><p>A constitutional democracy with a President and Prime Minister, and a national identity built around the Three Houses.</p></article>
+        <article class="card"><div class="card-icon">🪙</div><h3>Dual Currency</h3><p>The Brisha is Ironica’s national currency. The euro is also part of the country’s defined monetary system.</p></article>
+        <article class="card"><div class="card-icon">🌐</div><h3>Global Ambition</h3><p>In Ironica’s lore, the country ranks 1st in GDP and population density.</p></article>
+      </div>
+    </section>
+
+    <section class="government" id="government">
+      <div class="gov-intro">
+        <div class="eyebrow">Institutions nacionais</div>
+        <h2>The Government of Ironica</h2>
+        <p>Ironica is defined as a constitutional democracy. This section introduces the two main offices listed in the nation’s profile.</p>
+      </div>
+      <div class="officials">
+        <article class="official"><div class="avatar">🏅</div><div class="role">President</div><h3>Gabriel Pinto</h3><p>Head of State of the Republic of the Three Houses of Ironica, according to the lore.</p></article>
+        <article class="official"><div class="avatar">📜</div><div class="role">Prime Minister</div><h3>Diana Pinto</h3><p>Head of Government of the Republic of the Three Houses of Ironica, according to the lore.</p></article>
+      </div>
+    </section>
+
+    <section class="economy" id="economy">
+      <div>
+        <div class="section-head">
+          <div class="eyebrow">National Finance</div>
+          <h2>The Economy and the Brisha</h2>
+          <p>Ironica’s monetary system combines the Brisha and the euro. The rate shown is the official rate defined for this fictional universe.</p>
+        </div>
+        <div class="notice"><strong>Currency note:</strong> 1 Brisha (B) equals 50 euro cents (€0.50), according to Ironica’s defined rule.</div>
+      </div>
+      <div class="currency-box">
+        <div class="coin">B</div>
+        <h3>A Brisha</h3>
+        <p>National Currency de Ironica.</p>
+        <div class="facts">
+          <div class="fact"><span>Defined Rate</span><strong>1 B = €0,50</strong></div>
+          <div class="fact"><span>Declared Funds</span><strong>≈ 900.000 B</strong></div>
+          <div class="fact"><span>Equivalent in Euros</span><strong>≈ €450.000</strong></div>
+          <div class="fact"><span>GDP Ranking</span><strong>1st place*</strong></div>
+        </div>
+        <div class="notice">* Ranking belongs to Ironica’s lore and is not a real-world economic ranking.</div>
+      </div>
+    </section>
+
+    <section class="map-panel" id="territory">
+      <div class="map-head"><h2>Territory of Ironica</h2><span>TERRITORY REFERENCE · USER-MARKED AREA</span></div>
+      <div class="map-art map-art-image">
+        <img src="ironica-territory.jpg" alt="Map screenshot with Ironica's territory outlined in orange">
+      </div>
+      <div class="map-note">The orange-marked area in the supplied map screenshot identifies Ironica’s territory. The screenshot below is used as the current territory reference.</div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div><strong>REPUBLIC OF THE THREE HOUSES OF IRONICA</strong><br><small>National portal · Fictional world project</small></div>
+      <small>Constitution · Unity · Future<br>© Ironica — page created for your fictional universe.</small>
+    </div>
+  </footer>
+</body>
+</html>
